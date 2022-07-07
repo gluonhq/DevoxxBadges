@@ -1,0 +1,32 @@
+.view {
+    -alternate-color: #353C5C;
+}
+
+.badge-cell {
+    -fx-min-height: 4.50em;
+    -fx-pref-height: 4.50em;
+}
+
+.badge-cell > .list-tile > .text-box > .primary-text {
+    -fx-text-fill: -primary-swatch-500;
+    -fx-fill: -primary-swatch-500;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+
+.badge-cell > .list-tile > .icon-text {
+    -fx-text-fill: -alternate-color;
+}
+
+.charm-list-view .header-cell {
+    -fx-padding: 5;
+    -fx-background-color: -primary-swatch-200;
+}
+
+.charm-list-view .header-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.charm-list-view .header-cell .label {
+    -fx-text-fill: -primary-swatch-900;
+}

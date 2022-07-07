@@ -1,0 +1,43 @@
+.root {
+    -primary-swatch-100: #F1CFB4;
+    -primary-swatch-200: #E8B286;
+    -primary-swatch-300: #DF9356;
+    -primary-swatch-400: #D87C32;
+    -primary-swatch-500: #d2660f;
+    -primary-swatch-600: #BF5C0D;
+    -primary-swatch-700: #AA520C;
+    -primary-swatch-800: #95480A;
+    -primary-swatch-900: #6D3507;
+    -alternate-color: #353C5C;
+
+    -fab-primary-background-color: -alternate-color;
+    -fab-secondary-background-color: white;
+}
+
+.badge-scanner.fab {
+    -fx-graphic: url(images/qrcode-scan.png);
+    -fx-content-display: graphic-only;
+}
+
+.badge-scanner.fab > .image-view {
+    -fx-translate-x: -1.0;
+    -fx-translate-y: -1.0;
+}
+
+.placeholder {
+    -fx-spacing: 1.249995em;
+}
+
+.placeholder-graphic {
+    -fx-font-size: 8em;
+    -fx-text-fill: #EE8836;
+}
+
+.placeholder .title {
+    -fx-font-size: 1.4em;
+    -fx-font-weight: bold;
+}
+
+.placeholder .message {
+    -fx-text-alignment: center;
+}

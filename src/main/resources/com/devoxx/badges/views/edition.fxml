@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.mvc.View?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.Pane?>
+<View fx:id="editionView" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devoxx.badges.views.EditionPresenter">
+   <GridPane fx:id="grid" BorderPane.alignment="CENTER">
+      <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0"/>
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
+         <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
+         <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
+         <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
+         <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
+         <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES"/>
+         <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="ALWAYS"/>
+      </rowConstraints>
+      <Label text="%BADGE.FIRST_NAME"/>
+      <TextField fx:id="firstName" disable="true" GridPane.columnIndex="1"/>
+      <Label text="%BADGE.LAST_NAME" GridPane.rowIndex="1"/>
+      <TextField fx:id="lastName" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+      <Label text="%BADGE.COMPANY" GridPane.rowIndex="2"/>
+      <TextField fx:id="company" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+      <Label text="%BADGE.EMAIL" GridPane.rowIndex="3"/>
+      <TextField fx:id="email" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+      <TextArea fx:id="details" prefHeight="80.0" promptText="%BADGE.DETAILS.PROMPT" GridPane.columnSpan="2"
+                GridPane.rowIndex="5"/>
+      <Label text="%BADGE.DETAILS" GridPane.columnSpan="2" GridPane.rowIndex="4"/>
+      <Pane GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.vgrow="ALWAYS"/>
+   </GridPane>
+</View>
