@@ -22,7 +22,7 @@ jobs:
 
       - uses: Apple-Actions/download-provisioning-profiles@v1
         with:
-          bundle-id: com.devoxx.scan
+          bundle-id: com.devoxx.badges.devoxxbadges
           issuer-id: ${{ secrets.DEVOXX_IOS_APPSTORE_ISSUER_ID }}
           api-key-id: ${{ secrets.DEVOXX_IOS_APPSTORE_KEY_ID }}
           api-private-key: ${{ secrets.DEVOXX_IOS_APPSTORE_PRIVATE_KEY }}
