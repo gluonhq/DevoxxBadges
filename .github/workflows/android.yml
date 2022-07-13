@@ -25,7 +25,7 @@ jobs:
         uses: timheuer/base64-to-file@v1
         with:
           fileName: 'my.jks'
-          encodedString: ${{ secrets.DEVOXX_ANDROID_KEYSTORE_BASE64 }}
+          encodedString: ${{ secrets.GLUON_ANDROID_KEYSTORE_BASE64 }}
 
       - name: Gluon License
         uses: gluonhq/gluon-build-license@v2
@@ -45,9 +45,9 @@ jobs:
         env:
           VERSION_CODE: ${{ steps.variables.outputs.VERSION }}
           GLUON_ANDROID_KEYSTOREPATH: ${{ steps.android_keystore_file.outputs.filePath }}
-          GLUON_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.DEVOXX_ANDROID_KEYSTORE_PASSWORD }}
-          GLUON_ANDROID_KEYALIAS: ${{ secrets.DEVOXX_ANDROID_KEYALIAS }}
-          GLUON_ANDROID_KEYALIAS_PASSWORD: ${{ secrets.DEVOXX_ANDROID_KEYALIAS_PASSWORD }}
+          GLUON_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.GLUON_ANDROID_KEYSTORE_PASSWORD }}
+          GLUON_ANDROID_KEYALIAS: ${{ secrets.GLUON_ANDROID_KEYALIAS }}
+          GLUON_ANDROID_KEYALIAS_PASSWORD: ${{ secrets.GLUON_ANDROID_KEYALIAS_PASSWORD }}
 
       - name: Make staging directory
         run: mkdir staging
