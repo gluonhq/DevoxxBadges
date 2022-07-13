@@ -21,6 +21,12 @@
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
         <mainClassName>com.devoxx.badges.DevoxxBadges</mainClassName>
         <gluonfx.target>host</gluonfx.target>
+        <!-- for Android -->
+        <version.code>1</version.code>
+        <version.name>1.0</version.name>
+        <!-- for iOS -->
+        <bundle.version>1</bundle.version>
+        <bundle.short.version>1.0</bundle.short.version>
     </properties>
 
     <dependencies>
@@ -173,12 +179,16 @@
             <id>ios</id>
             <properties>
                 <gluonfx.target>ios</gluonfx.target>
+                <bundleVersion>${bundle.version}</bundleVersion>
+                <bundle.short.version>${bundle.short.version}</bundle.short.version>
             </properties>
         </profile>
         <profile>
             <id>android</id>
             <properties>
                 <gluonfx.target>android</gluonfx.target>
+                <versionCode>${version.code}</versionCode>
+                <versionName>${version.name}</versionName>
             </properties>
         </profile>
     </profiles>
