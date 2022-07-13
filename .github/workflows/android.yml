@@ -41,7 +41,7 @@ jobs:
 
       - name: Gluon Build
         run: |
-          mvn -Pandroid -Dandroid.keystore.path="$GLUON_ANDROID_KEYSTOREPATH" -Dandroid.keystore.password="$GLUON_ANDROID_KEYSTORE_PASSWORD" -Dandroid.keyalias="$GLUON_ANDROID_KEYALIAS" -Dandroid.keyalias.password="$GLUON_ANDROID_KEYALIAS_PASSWORD" -Dversion.code="$VERSION_CODE" gluonfx:build gluonfx:package
+          mvn -Pandroid gluonfx:build gluonfx:package
         env:
           VERSION_CODE: ${{ steps.variables.outputs.VERSION }}
           GLUON_ANDROID_KEYSTOREPATH: ${{ steps.android_keystore_file.outputs.filePath }}
