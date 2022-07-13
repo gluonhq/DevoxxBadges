@@ -30,6 +30,7 @@ jobs:
       - name: Gluon License
         uses: gluonhq/gluon-build-license@v2
         with:
+          dir: .
           gluon-license: ${{ secrets.GLUON_LICENSE }}
 
       - name: Version code
