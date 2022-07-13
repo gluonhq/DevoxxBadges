@@ -169,6 +169,14 @@
                         <list>com.devoxx.badges.views.EditionPresenter</list>
                     </reflectionList>
                     <mainClass>${mainClassName}</mainClass>
+                    <releaseConfiguration>
+                        <!-- for iOS -->
+                        <bundleShortVersion>${bundle.short.version}</bundleShortVersion>
+                        <bundleVersion>${bundle.version}</bundleVersion>
+                        <!-- for Android -->
+                        <versionCode>${version.code}</versionCode>
+                        <versionName>${version.name}</versionName>
+                    </releaseConfiguration>
                 </configuration>
             </plugin>
         </plugins>
@@ -179,16 +187,12 @@
             <id>ios</id>
             <properties>
                 <gluonfx.target>ios</gluonfx.target>
-                <bundleVersion>${bundle.version}</bundleVersion>
-                <bundle.short.version>${bundle.short.version}</bundle.short.version>
             </properties>
         </profile>
         <profile>
             <id>android</id>
             <properties>
                 <gluonfx.target>android</gluonfx.target>
-                <versionCode>${version.code}</versionCode>
-                <versionName>${version.name}</versionName>
             </properties>
         </profile>
     </profiles>
