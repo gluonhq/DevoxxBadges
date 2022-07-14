@@ -24,6 +24,10 @@
         <!-- for Android -->
         <version.code>1</version.code>
         <version.name>1.0</version.name>
+        <android.keystore.path/>
+        <android.keystore.password/>
+        <android.keyalias/>
+        <android.keyalias.password/>
         <!-- for iOS -->
         <bundle.version>1</bundle.version>
         <bundle.short.version>1.0</bundle.short.version>
@@ -176,6 +180,10 @@
                         <!-- for Android -->
                         <versionCode>${version.code}</versionCode>
                         <versionName>${version.name}</versionName>
+                        <providedKeyStorePath>${android.keystore.path}</providedKeyStorePath>
+                        <providedKeyStorePassword>${android.keystore.password}</providedKeyStorePassword>
+                        <providedKeyAlias>${android.keyalias}</providedKeyAlias>
+                        <providedKeyAliasPassword>${android.keyalias.password}</providedKeyAliasPassword>
                     </releaseConfiguration>
                 </configuration>
             </plugin>
@@ -193,11 +201,6 @@
             <id>android</id>
             <properties>
                 <gluonfx.target>android</gluonfx.target>
-                <version.code>${env.GITHUB_RUN_NUMBER}</version.code>
-                <provided.keystore.path>${env.GLUON_ANDROID_KEYSTOREPATH}</provided.keystore.path>
-                <provided.keystore.password>${env.GLUON_ANDROID_KEYSTORE_PASSWORD}</provided.keystore.password>
-                <provided.key.alias>${env.GLUON_ANDROID_KEYALIAS}</provided.key.alias>
-                <provided.key.alias.password>${env.GLUON_ANDROID_KEYALIAS_PASSWORD}</provided.key.alias.password>                
             </properties>
         </profile>
     </profiles>
