@@ -56,6 +56,18 @@ public class Badge {
     public String getEmail() { return email.get(); }
     public void setEmail(String email) { this.email.set(email); }
 
+    // countryProperty
+    private final StringProperty countryProperty = new SimpleStringProperty(this, "country");
+    public final StringProperty countryProperty() {
+       return countryProperty;
+    }
+    public final String getCountry() {
+       return countryProperty.get();
+    }
+    public final void setCountry(String value) {
+        countryProperty.set(value);
+    }
+
     private final StringProperty details = new SimpleStringProperty();
     public StringProperty detailsProperty() { return details; }
     public String getDetails() { return details.get(); }
@@ -103,6 +115,7 @@ public class Badge {
         csv.append(",").append(safeStr(getLastName()));
         csv.append(",").append(safeStr(getCompany()));
         csv.append(",").append(safeStr(getEmail()));
+        csv.append(",").append(safeStr(getCountry()));
         csv.append(",").append(safeStr(getDetails()));
         if (getDateTime() != 0L) {
             csv.append(",").append(safeStr(DATE_TIME_FORMATTER.format(new Timestamp(getDateTime()))));
