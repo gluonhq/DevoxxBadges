@@ -38,6 +38,9 @@ public class EditionPresenter {
     private TextField email;
 
     @FXML
+    private TextField country;
+
+    @FXML
     private TextArea details;
 
     @FXML
@@ -87,6 +90,7 @@ public class EditionPresenter {
         lastName.setText(badge.getLastName());
         company.setText(badge.getCompany());
         email.setText(badge.getEmail());
+        country.setText(badge.getCountry());
         details.setText(badge.getDetails());
 
         details.textProperty().addListener(detailsChangeListener);
@@ -119,6 +123,7 @@ public class EditionPresenter {
         badge.setLastName(lastName.getText());
         badge.setCompany(company.getText());
         badge.setEmail(email.getText());
+        badge.setCountry(country.getText());
         badge.setDetails(details.getText());
 
         service.addBadge(badge);
