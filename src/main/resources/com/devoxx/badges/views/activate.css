@@ -1,0 +1,22 @@
+.view {
+}
+
+.container {
+    -fx-alignment: top-center;
+    -fx-padding: 3em 2em 2em 2em;
+    -fx-spacing: 1.5em;
+}
+
+.container > .legend {
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
+
+.container > .icon > .icon-text {
+    -fx-font-size: 8em;
+    -fx-text-fill: #EE8836;
+}
+
+.container > .username > .text-field {
+    -fx-font-size: 1.1em;
+}

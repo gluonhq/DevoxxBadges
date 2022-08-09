@@ -77,12 +77,22 @@
         </dependency>
         <dependency>
             <groupId>com.gluonhq.attach</groupId>
+            <artifactId>connectivity</artifactId>
+            <version>${attach.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
             <artifactId>display</artifactId>
             <version>${attach.version}</version>
         </dependency>
         <dependency>
             <groupId>com.gluonhq.attach</groupId>
             <artifactId>lifecycle</artifactId>
+            <version>${attach.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>settings</artifactId>
             <version>${attach.version}</version>
         </dependency>
         <dependency>
@@ -156,13 +166,16 @@
                     <target>${gluonfx.target}</target>
                     <attachList>
                         <list>barcode-scan</list>
+                        <list>connectivity</list>
                         <list>display</list>
                         <list>lifecycle</list>
+                        <list>settings</list>
                         <list>share</list>
                         <list>statusbar</list>
                         <list>storage</list>
                     </attachList>
                     <bundlesList>
+                        <list>com.devoxx.badges.views.activate</list>
                         <list>com.devoxx.badges.views.badges</list>
                         <list>com.devoxx.badges.views.drawer</list>
                         <list>com.devoxx.badges.views.edition</list>
@@ -171,6 +184,7 @@
                     <reflectionList>
                         <list>com.devoxx.badges.model.Badge</list>
                         <list>com.devoxx.badges.service.Service</list>
+                        <list>com.devoxx.badges.views.ActivatePresenter</list>
                         <list>com.devoxx.badges.views.BadgesPresenter</list>
                         <list>com.devoxx.badges.views.EditionPresenter</list>
                         <list>com.devoxx.badges.views.MainPresenter</list>
