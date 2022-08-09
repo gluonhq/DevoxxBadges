@@ -3,6 +3,7 @@ package com.devoxx.badges.views;
 import com.devoxx.badges.model.Badge;
 import com.devoxx.badges.service.Service;
 import com.gluonhq.attach.barcodescan.BarcodeScanService;
+import com.gluonhq.attach.settings.SettingsService;
 import com.gluonhq.attach.share.ShareService;
 import com.gluonhq.attach.storage.StorageService;
 import com.gluonhq.charm.glisten.application.AppManager;
@@ -38,6 +39,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 
 import javax.inject.Inject;
 
@@ -56,6 +58,9 @@ public class BadgesPresenter {
 
     @Inject
     private Service service;
+
+    private MenuItem signUpMenuItem;
+    private MenuItem signOutMenuItem;
 
     public void initialize() {
         FloatingActionButton scan = new FloatingActionButton();
@@ -81,8 +86,14 @@ public class BadgesPresenter {
             badgesListView.setComparator(Comparator.comparing(Badge::getDateTime));
         });
 
+        signUpMenuItem = getSignUpMenuItem();
+        signOutMenuItem = getSignOutMenuItem();
         badgesView.showingProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue) {
+
+                String emailAccount = SettingsService.create().map(settingsService ->
+                                settingsService.retrieve(AppViewManager.SAVED_ACCOUNT_EMAIL))
+                        .orElse(null);
                 AppManager appManager = AppManager.getInstance();
                 AppBar appBar = appManager.getAppBar();
                 final Button shareButton = getShareButton();
@@ -91,6 +102,7 @@ public class BadgesPresenter {
                         AppManager.getInstance().getDrawer().open()));
                 appBar.setTitleText(resources.getString("BADGES.VIEW"));
                 appBar.getActionItems().setAll(shareButton);
+                appBar.getMenuItems().setAll(emailAccount == null || emailAccount.isEmpty() ? signUpMenuItem : signOutMenuItem);
             }
         });
 
@@ -118,6 +130,25 @@ public class BadgesPresenter {
         }
     }
 
+    private MenuItem getSignUpMenuItem() {
+        MenuItem item = new MenuItem();
+        item.setText(resources.getString("ACTIVATION.MENU.IN"));
+        item.setOnAction(e -> AppViewManager.SIGN_UP_VIEW.switchView(ViewStackPolicy.USE));
+        return item;
+    }
+
+    private MenuItem getSignOutMenuItem() {
+        MenuItem item = new MenuItem();
+        item.setText(resources.getString("ACTIVATION.MENU.OUT"));
+        item.setOnAction(e -> SettingsService.create().ifPresent(settingsService -> {
+            settingsService.remove(AppViewManager.SAVED_ACCOUNT_EMAIL);
+            Toast toast = new Toast(resources.getString("ACTIVATION.SIGNED.OUT"));
+            toast.show();
+            AppManager.getInstance().getAppBar().getMenuItems().setAll(signUpMenuItem);
+        }));
+        return item;
+    }
+
     private Button getShareButton() {
         return MaterialDesignIcon.SHARE.button(e -> {
             File root = StorageService.create()
@@ -132,7 +163,7 @@ public class BadgesPresenter {
                     file.delete();
                 }
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                    writer.write("ID,First Name,Last Name,Company,Email,Details,Timestamp");
+                    writer.write("ID,First Name,Last Name,Company,Email,Country,Details,Timestamp");
                     writer.newLine();
                     for (Badge badge : service.badgesProperty().get()) {
                         writer.write(badge.toCSV());
