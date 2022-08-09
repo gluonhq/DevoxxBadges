@@ -11,6 +11,7 @@ import com.gluonhq.charm.glisten.application.ViewStackPolicy;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.CharmListView;
 import com.gluonhq.charm.glisten.control.FloatingActionButton;
+import com.gluonhq.charm.glisten.control.Icon;
 import com.gluonhq.charm.glisten.control.Toast;
 import com.gluonhq.charm.glisten.mvc.View;
 
@@ -131,15 +132,13 @@ public class BadgesPresenter {
     }
 
     private MenuItem getSignUpMenuItem() {
-        MenuItem item = new MenuItem();
-        item.setText(resources.getString("ACTIVATION.MENU.IN"));
+        MenuItem item = new MenuItem(resources.getString("ACTIVATION.MENU.IN"), new Icon(MaterialDesignIcon.LOCK_OUTLINE));
         item.setOnAction(e -> AppViewManager.SIGN_UP_VIEW.switchView(ViewStackPolicy.USE));
         return item;
     }
 
     private MenuItem getSignOutMenuItem() {
-        MenuItem item = new MenuItem();
-        item.setText(resources.getString("ACTIVATION.MENU.OUT"));
+        MenuItem item = new MenuItem(resources.getString("ACTIVATION.MENU.OUT"), new Icon(MaterialDesignIcon.LOCK_OPEN));
         item.setOnAction(e -> SettingsService.create().ifPresent(settingsService -> {
             settingsService.remove(AppViewManager.SAVED_ACCOUNT_EMAIL);
             Toast toast = new Toast(resources.getString("ACTIVATION.SIGNED.OUT"));
