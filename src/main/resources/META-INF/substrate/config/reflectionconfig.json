@@ -1,0 +1,25 @@
+[
+  {
+    "name":"com.gluonhq.charm.glisten.control.TextField",
+    "methods":[
+      {"name":"<init>","parameterTypes":[] },
+      {"name":"<init>","parameterTypes":["java.lang.String"] }
+    ]
+  }
+,
+  {
+    "name":"com.gluonhq.charm.glisten.control.TextInput",
+    "methods":[
+      {"name":"<init>","parameterTypes":[] },
+      {"name":"setText","parameterTypes":["java.lang.String"] },
+      {"name":"getText","parameterTypes":[] },
+      {"name":"setPromptText","parameterTypes":["java.lang.String"] },
+      {"name":"getPromptText","parameterTypes":[] }
+    ]
+  }
+,
+  {
+    "name":"javax.json.JsonObject",
+    "queryAllPublicMethods":true
+  }
+]
