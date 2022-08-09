@@ -21,13 +21,18 @@ public class Badge {
     }
 
     public Badge(String qr) {
-        if (qr != null && ! qr.isEmpty() && qr.split("::").length == 5) {
+        if (qr != null && !qr.isEmpty()) {
             String[] split = qr.split("::");
-            badgeId.set(split[0]);
-            lastName.set(split[1]);
-            firstName.set(split[2]);
-            company.set(split[3]);
-            email.set(split[4]);
+            if (split.length == 5 || split.length == 6) {
+                badgeId.set(split[0]);
+                lastName.set(split[1]);
+                firstName.set(split[2]);
+                company.set(split[3]);
+                email.set(split[4]);
+                if (split.length == 6) {
+                    country.set(split[5]);
+                }
+            }
         }
     }
 
@@ -57,15 +62,15 @@ public class Badge {
     public void setEmail(String email) { this.email.set(email); }
 
     // countryProperty
-    private final StringProperty countryProperty = new SimpleStringProperty(this, "country");
+    private final StringProperty country = new SimpleStringProperty(this, "country");
     public final StringProperty countryProperty() {
-       return countryProperty;
+       return country;
     }
     public final String getCountry() {
-       return countryProperty.get();
+       return country.get();
     }
     public final void setCountry(String value) {
-        countryProperty.set(value);
+        country.set(value);
     }
 
     private final StringProperty details = new SimpleStringProperty();
