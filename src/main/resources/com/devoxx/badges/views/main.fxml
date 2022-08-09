@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import com.gluonhq.charm.glisten.mvc.View?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.Pane?>
+<View fx:id="mainView" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devoxx.badges.views.MainPresenter">
+   <VBox styleClass="box">
+      <ImageView fitWidth="80" fitHeight="80">
+         <image>
+            <Image url="@../../../../icon.png"/>
+         </image>
+      </ImageView>
+      <Label styleClass="title" text="%MAIN.TITLE"/>
+      <Label styleClass="description" text="%MAIN.DESCRIPTION" wrapText="true"/>
+      <Pane prefHeight="40"/>
+      <Label styleClass="instructions" text="%MAIN.INSTRUCTIONS" wrapText="true"/>
+   </VBox>
+</View>

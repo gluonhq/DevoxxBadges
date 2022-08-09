@@ -1,0 +1,26 @@
+.view {
+}
+
+.box {
+    -fx-spacing: 10;
+    -fx-alignment: center;
+    -fx-padding: 40;
+}
+
+.box > .title.label {
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
+    -fx-text-fill: -primary-swatch-900;
+}
+
+.box > .description.label {
+    -fx-font-size: 1.1em;
+    -fx-text-fill: -primary-swatch-500;
+    -fx-text-alignment: center;
+}
+
+.box > .instructions.label {
+    -fx-font-size: 0.9em;
+    -fx-text-fill: -primary-swatch-500;
+    -fx-text-alignment: center;
+}
