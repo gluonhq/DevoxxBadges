@@ -14,7 +14,7 @@ public class DevoxxBadges extends Application {
 
     @Override
     public void init() {
-        AppViewManager.registerViews();
+        AppViewManager.registerViewsAndDrawer();
     }
 
     @Override

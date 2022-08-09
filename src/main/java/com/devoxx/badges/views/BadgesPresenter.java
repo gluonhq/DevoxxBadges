@@ -87,6 +87,8 @@ public class BadgesPresenter {
                 AppBar appBar = appManager.getAppBar();
                 final Button shareButton = getShareButton();
                 shareButton.disableProperty().bind(badgesListView.itemsProperty().emptyProperty());
+                appBar.setNavIcon(MaterialDesignIcon.MENU.button(e ->
+                        AppManager.getInstance().getDrawer().open()));
                 appBar.setTitleText(resources.getString("BADGES.VIEW"));
                 appBar.getActionItems().setAll(shareButton);
             }
@@ -155,10 +157,10 @@ public class BadgesPresenter {
 
     private static String getDummyQR() {
         List<String> qrs = Arrays.asList(
-                "1::Smith::John::Devoxx::john.smith@devoxx.com",
-                "2::Doe::Stacey::Devoxx::stacey.doe@devoxx.com",
-                "3::Gates::Paul::Devoxx::paul.gates@devoxx.com",
-                "4::Bisl::Elon::Devoxx::elon.bisl@devoxx.com"
+                "1::Smith::John::Devoxx::john.smith@devoxx.com::USA",
+                "2::Doe::Stacey::Devoxx::stacey.doe@devoxx.com::Belgium",
+                "3::Gates::Paul::Devoxx::paul.gates@devoxx.com::India",
+                "4::Bisl::Elon::Devoxx::elon.bisl@devoxx.com::Spain"
         );
         return qrs.get(new Random().nextInt(qrs.size()));
     }
