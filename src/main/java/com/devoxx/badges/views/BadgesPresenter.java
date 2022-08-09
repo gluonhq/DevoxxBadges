@@ -103,10 +103,8 @@ public class BadgesPresenter {
             service.badgesProperty().get().stream()
                     .filter(b -> b != null && b.getBadgeId() != null && b.getBadgeId().equals(badge.getBadgeId()))
                     .findAny()
-                    .ifPresentOrElse(b -> {
-                            Toast toast = new Toast(resources.getString("BADGES.QR.EXISTS"));
-                            toast.show();
-                        },
+                    .ifPresentOrElse(b -> AppViewManager.EDITION_VIEW.switchView(ViewStackPolicy.USE)
+                            .ifPresent(presenter -> ((EditionPresenter) presenter).setBadge(b, false)),
                         () -> {
                             badge.setDateTime(System.currentTimeMillis());
                             service.addBadge(badge);
