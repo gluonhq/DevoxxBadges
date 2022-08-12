@@ -1,6 +1,7 @@
 package com.devoxx.badges.views;
 
 import com.devoxx.badges.model.Badge;
+import com.devoxx.badges.model.User;
 import com.devoxx.badges.service.Service;
 import com.gluonhq.attach.barcodescan.BarcodeScanService;
 import com.gluonhq.attach.settings.SettingsService;
@@ -58,6 +59,9 @@ public class BadgesPresenter {
     @Inject
     private Service service;
 
+    @Inject
+    private User user;
+
     public void initialize() {
         FloatingActionButton scan = new FloatingActionButton();
         scan.getStyleClass().add("badge-scanner");
@@ -95,12 +99,14 @@ public class BadgesPresenter {
 
                 AppManager appManager = AppManager.getInstance();
                 AppBar appBar = appManager.getAppBar();
+                final Button syncButton = getSyncButton();
+                syncButton.disableProperty().bind(badgesListView.itemsProperty().emptyProperty().or(user.signedUpProperty().not()));
                 final Button shareButton = getShareButton();
                 shareButton.disableProperty().bind(badgesListView.itemsProperty().emptyProperty());
                 appBar.setNavIcon(MaterialDesignIcon.MENU.button(e ->
                         AppManager.getInstance().getDrawer().open()));
                 appBar.setTitleText(AppViewManager.BADGES_VIEW.getTitle());
-                appBar.getActionItems().setAll(shareButton);
+                appBar.getActionItems().setAll(syncButton, shareButton);
             }
         });
 
@@ -126,6 +132,14 @@ public class BadgesPresenter {
             Toast toast = new Toast(resources.getString("BADGES.BAD.QR"));
             toast.show();
         }
+    }
+
+    private Button getSyncButton() {
+        return MaterialDesignIcon.SYNC.button(e -> {
+            service.syncBadges();
+            Toast toast = new Toast(resources.getString("BADGES.SYNCED"));
+            toast.show();
+        });
     }
 
     private Button getShareButton() {

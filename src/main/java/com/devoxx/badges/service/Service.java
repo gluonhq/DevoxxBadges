@@ -1,9 +1,9 @@
 package com.devoxx.badges.service;
 
+import com.airhacks.afterburner.injection.Injector;
 import com.devoxx.badges.model.Badge;
-import com.devoxx.badges.views.AppViewManager;
+import com.devoxx.badges.model.User;
 import com.gluonhq.attach.connectivity.ConnectivityService;
-import com.gluonhq.attach.settings.SettingsService;
 import com.gluonhq.cloudlink.client.data.DataClient;
 import com.gluonhq.cloudlink.client.data.DataClientBuilder;
 import com.gluonhq.cloudlink.client.data.OperationMode;
@@ -21,6 +21,7 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 
 import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
@@ -34,6 +35,9 @@ public class Service {
     private final ListProperty<Badge> badges = new SimpleListProperty<>(FXCollections.observableArrayList());
     
     private DataClient dataClient;
+
+    @Inject
+    private User user;
 
     @PostConstruct
     public void postConstruct() {
@@ -57,10 +61,9 @@ public class Service {
     public Badge addBadge(Badge badge) {
         badges.get().add(badge);
 
-        SettingsService.create().map(settingsService ->
-                settingsService.retrieve(AppViewManager.SAVED_ACCOUNT_EMAIL))
-                .ifPresent(emailAccount -> postBadge(badge, emailAccount));
-
+        if (user.isSignedUp()) {
+            postBadge(badge, user.getEmail());
+        }
         return badge;
     }
 
@@ -70,6 +73,13 @@ public class Service {
 
     public ListProperty<Badge> badgesProperty() {
         return badges;
+    }
+
+    public void syncBadges() {
+        if (!user.isSignedUp()) {
+            return;
+        }
+        badges.forEach(badge -> postBadge(badge, user.getEmail()));
     }
 
     private void postBadge(Badge badge, String emailAddress) {
