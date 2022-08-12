@@ -11,7 +11,6 @@ import com.gluonhq.charm.glisten.application.ViewStackPolicy;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.CharmListView;
 import com.gluonhq.charm.glisten.control.FloatingActionButton;
-import com.gluonhq.charm.glisten.control.Icon;
 import com.gluonhq.charm.glisten.control.Toast;
 import com.gluonhq.charm.glisten.mvc.View;
 
@@ -40,7 +39,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 
 import javax.inject.Inject;
 
@@ -59,9 +57,6 @@ public class BadgesPresenter {
 
     @Inject
     private Service service;
-
-    private MenuItem signUpMenuItem;
-    private MenuItem signOutMenuItem;
 
     public void initialize() {
         FloatingActionButton scan = new FloatingActionButton();
@@ -87,23 +82,25 @@ public class BadgesPresenter {
             badgesListView.setComparator(Comparator.comparing(Badge::getDateTime));
         });
 
-        signUpMenuItem = getSignUpMenuItem();
-        signOutMenuItem = getSignOutMenuItem();
         badgesView.showingProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue) {
 
-                String emailAccount = SettingsService.create().map(settingsService ->
-                                settingsService.retrieve(AppViewManager.SAVED_ACCOUNT_EMAIL))
-                        .orElse(null);
+                if (SettingsService.create().map(settingsService ->
+                                settingsService.retrieve(AppViewManager.FIRST_RUN))
+                        .isEmpty()) {
+                    SettingsService.create().ifPresent(settingsService ->
+                            settingsService.store(AppViewManager.FIRST_RUN, "First run done"));
+                    AppViewManager.ABOUT_VIEW.switchView(ViewStackPolicy.USE);
+                }
+
                 AppManager appManager = AppManager.getInstance();
                 AppBar appBar = appManager.getAppBar();
                 final Button shareButton = getShareButton();
                 shareButton.disableProperty().bind(badgesListView.itemsProperty().emptyProperty());
                 appBar.setNavIcon(MaterialDesignIcon.MENU.button(e ->
                         AppManager.getInstance().getDrawer().open()));
-                appBar.setTitleText(resources.getString("BADGES.VIEW"));
+                appBar.setTitleText(AppViewManager.BADGES_VIEW.getTitle());
                 appBar.getActionItems().setAll(shareButton);
-                appBar.getMenuItems().setAll(emailAccount == null || emailAccount.isEmpty() ? signUpMenuItem : signOutMenuItem);
             }
         });
 
@@ -129,23 +126,6 @@ public class BadgesPresenter {
             Toast toast = new Toast(resources.getString("BADGES.BAD.QR"));
             toast.show();
         }
-    }
-
-    private MenuItem getSignUpMenuItem() {
-        MenuItem item = new MenuItem(resources.getString("ACTIVATION.MENU.IN"), new Icon(MaterialDesignIcon.LOCK_OUTLINE));
-        item.setOnAction(e -> AppViewManager.SIGN_UP_VIEW.switchView(ViewStackPolicy.USE));
-        return item;
-    }
-
-    private MenuItem getSignOutMenuItem() {
-        MenuItem item = new MenuItem(resources.getString("ACTIVATION.MENU.OUT"), new Icon(MaterialDesignIcon.LOCK_OPEN));
-        item.setOnAction(e -> SettingsService.create().ifPresent(settingsService -> {
-            settingsService.remove(AppViewManager.SAVED_ACCOUNT_EMAIL);
-            Toast toast = new Toast(resources.getString("ACTIVATION.SIGNED.OUT"));
-            toast.show();
-            AppManager.getInstance().getAppBar().getMenuItems().setAll(signUpMenuItem);
-        }));
-        return item;
     }
 
     private Button getShareButton() {

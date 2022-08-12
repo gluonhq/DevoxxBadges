@@ -10,12 +10,12 @@ import javafx.fxml.FXML;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
-public class MainPresenter {
+public class AboutPresenter {
 
-    private static final Logger LOG = Logger.getLogger(MainPresenter.class.getName());
+    private static final Logger LOG = Logger.getLogger(AboutPresenter.class.getName());
 
     @FXML
-    private View mainView;
+    private View aboutView;
 
     @FXML
     private ResourceBundle resources;
@@ -24,9 +24,9 @@ public class MainPresenter {
         FloatingActionButton start = new FloatingActionButton();
         start.setText(MaterialDesignIcon.PLAY_CIRCLE_OUTLINE.text);
         start.setOnAction(e -> AppViewManager.BADGES_VIEW.switchView());
-        start.showOn(mainView);
+        start.showOn(aboutView);
 
-        mainView.showingProperty().addListener((obs, oldValue, newValue) -> {
+        aboutView.showingProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue) {
                 AppManager appManager = AppManager.getInstance();
                 AppBar appBar = appManager.getAppBar();

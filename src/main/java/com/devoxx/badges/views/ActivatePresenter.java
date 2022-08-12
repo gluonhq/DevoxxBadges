@@ -10,7 +10,6 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class ActivatePresenter {
@@ -24,15 +23,13 @@ public class ActivatePresenter {
     private TextField username;
     @FXML
     private Button submit;
-    @FXML
-    private ResourceBundle resources;
 
     public void initialize() {
         activateView.setOnShowing(event -> {
             AppBar appBar = AppManager.getInstance().getAppBar();
             appBar.setNavIcon(MaterialDesignIcon.ARROW_BACK.button(e ->
                     AppManager.getInstance().switchToPreviousView()));
-            appBar.setTitleText(resources.getString("ACTIVATION.VIEW"));
+            appBar.setTitleText(AppViewManager.SIGN_UP_VIEW.getTitle());
             username.setText(null);
         });
 
