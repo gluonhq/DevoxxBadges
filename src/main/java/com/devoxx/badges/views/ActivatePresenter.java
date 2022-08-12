@@ -1,5 +1,6 @@
 package com.devoxx.badges.views;
 
+import com.devoxx.badges.model.User;
 import com.gluonhq.attach.settings.SettingsService;
 import com.gluonhq.charm.glisten.application.AppManager;
 import com.gluonhq.charm.glisten.control.AppBar;
@@ -10,6 +11,7 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
+import javax.inject.Inject;
 import java.util.regex.Pattern;
 
 public class ActivatePresenter {
@@ -23,6 +25,9 @@ public class ActivatePresenter {
     private TextField username;
     @FXML
     private Button submit;
+
+    @Inject
+    private User user;
 
     public void initialize() {
         activateView.setOnShowing(event -> {
@@ -38,8 +43,10 @@ public class ActivatePresenter {
 
     @FXML
     private void submit() {
-        SettingsService.create().ifPresent(settingsService ->
-                settingsService.store(AppViewManager.SAVED_ACCOUNT_EMAIL, username.getText()));
+        SettingsService.create().ifPresent(settingsService -> {
+            settingsService.store(AppViewManager.SAVED_ACCOUNT_EMAIL, username.getText());
+            user.setEmail(username.getText());
+        });
         AppManager.getInstance().switchToPreviousView();
     }
 

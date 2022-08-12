@@ -1,18 +1,16 @@
 package com.devoxx.badges.views;
 
+import com.airhacks.afterburner.injection.Injector;
+import com.devoxx.badges.model.User;
 import com.gluonhq.attach.settings.SettingsService;
 import com.gluonhq.charm.glisten.afterburner.AppView;
 import com.gluonhq.charm.glisten.afterburner.AppViewRegistry;
 import com.gluonhq.charm.glisten.afterburner.Utils;
 import com.gluonhq.charm.glisten.application.AppManager;
-import com.gluonhq.charm.glisten.application.MobileApplication;
-import com.gluonhq.charm.glisten.application.ViewStackPolicy;
 import com.gluonhq.charm.glisten.control.Avatar;
-import com.gluonhq.charm.glisten.control.Icon;
 import com.gluonhq.charm.glisten.control.NavigationDrawer;
 import com.gluonhq.charm.glisten.control.Toast;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
-import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 
 import java.util.Locale;
@@ -53,11 +51,13 @@ public class AppViewManager {
         NavigationDrawer drawer = AppManager.getInstance().getDrawer();
         Utils.buildDrawer(drawer, header, REGISTRY.getViews());
 
+        User user = Injector.instantiateModelOrService(User.class);
         NavigationDrawer.Item signupItem = drawer.getItems().stream()
                 .filter(item -> ((NavigationDrawer.Item) item).getTitle().equals(SIGN_UP_VIEW.getTitle()))
                 .map(NavigationDrawer.Item.class::cast)
                 .findFirst()
                 .orElseThrow();
+        signupItem.visibleProperty().bind(user.signedUpProperty().not());
         signupItem.managedProperty().bind(signupItem.visibleProperty());
 
         NavigationDrawer.Item logOut = new NavigationDrawer.Item(bundle.getString("ACTIVATION.MENU.OUT"), MaterialDesignIcon.LOCK_OPEN.graphic());
@@ -66,6 +66,7 @@ public class AppViewManager {
         logOut.selectedProperty().addListener((obs, ov, nv) -> {
             if (nv) {
                 SettingsService.create().ifPresent(settingsService -> {
+                    user.setEmail(null);
                     settingsService.remove(AppViewManager.SAVED_ACCOUNT_EMAIL);
                     Toast toast = new Toast(bundle.getString("ACTIVATION.SIGNED.OUT"));
                     toast.show();
@@ -74,11 +75,5 @@ public class AppViewManager {
             }
         });
         drawer.getItems().add(drawer.getItems().indexOf(signupItem) + 1, logOut);
-        drawer.openProperty().addListener((obs, ov, nv) -> {
-            signupItem.setVisible(SettingsService.create().map(settingsService ->
-                            settingsService.retrieve(AppViewManager.SAVED_ACCOUNT_EMAIL))
-                    .isEmpty());
-        });
-
     }
 }
