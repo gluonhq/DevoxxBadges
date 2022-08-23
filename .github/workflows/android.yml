@@ -70,6 +70,6 @@ jobs:
         uses: r0adkll/upload-google-play@v1.0.15
         with:
           serviceAccountJsonPlainText: ${{ secrets.DEVOXX_ANDROID_SERVICE_ACCOUNT_JSON }}
-          packageName: com.devoxx.badges
+          packageName: com.devoxx.badges.devoxxbadges
           releaseFiles: target/gluonfx/aarch64-android/gvm/DevoxxBadges.aab
           track: alpha

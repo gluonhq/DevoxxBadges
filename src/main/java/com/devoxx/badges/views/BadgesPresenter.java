@@ -179,10 +179,10 @@ public class BadgesPresenter {
 
     private static String getDummyQR() {
         List<String> qrs = Arrays.asList(
-                "1::Smith::John::Devoxx::john.smith@devoxx.com::USA",
-                "2::Doe::Stacey::Devoxx::stacey.doe@devoxx.com::Belgium",
-                "3::Gates::Paul::Devoxx::paul.gates@devoxx.com::India",
-                "4::Bisl::Elon::Devoxx::elon.bisl@devoxx.com::Spain"
+                "1::Smith::John::Devoxx::john.smith@devoxx.com::US",
+                "2::Doe::Stacey::Devoxx::stacey.doe@devoxx.com::BE",
+                "3::Gates::Paul::Devoxx::paul.gates@devoxx.com::IN",
+                "4::Bisl::Elon::Devoxx::elon.bisl@devoxx.com::ES"
         );
         return qrs.get(new Random().nextInt(qrs.size()));
     }
