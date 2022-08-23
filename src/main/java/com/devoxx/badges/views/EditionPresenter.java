@@ -1,6 +1,7 @@
 package com.devoxx.badges.views;
 
 import com.devoxx.badges.model.Badge;
+import com.devoxx.badges.model.Country;
 import com.devoxx.badges.service.Service;
 import com.gluonhq.charm.glisten.application.AppManager;
 import com.gluonhq.charm.glisten.control.AppBar;
@@ -90,7 +91,7 @@ public class EditionPresenter {
         lastName.setText(badge.getLastName());
         company.setText(badge.getCompany());
         email.setText(badge.getEmail());
-        country.setText(badge.getCountry());
+        country.setText(badge.getCountry().getCountryName());
         details.setText(badge.getDetails());
 
         details.textProperty().addListener(detailsChangeListener);
@@ -123,7 +124,7 @@ public class EditionPresenter {
         badge.setLastName(lastName.getText());
         badge.setCompany(company.getText());
         badge.setEmail(email.getText());
-        badge.setCountry(country.getText());
+        badge.setCountry(Country.fromCountryName(country.getText()));
         badge.setDetails(details.getText());
 
         service.addBadge(badge);

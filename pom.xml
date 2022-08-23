@@ -183,6 +183,7 @@
                     </bundlesList>
                     <reflectionList>
                         <list>com.devoxx.badges.model.Badge</list>
+                        <list>com.devoxx.badges.model.Country</list>
                         <list>com.devoxx.badges.model.User</list>
                         <list>com.devoxx.badges.service.Service</list>
                         <list>com.devoxx.badges.views.AboutPresenter</list>

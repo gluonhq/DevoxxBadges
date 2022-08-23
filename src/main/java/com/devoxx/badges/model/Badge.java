@@ -1,7 +1,9 @@
 package com.devoxx.badges.model;
 
 import javafx.beans.property.LongProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleLongProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -30,7 +32,7 @@ public class Badge {
                 company.set(split[3]);
                 email.set(split[4]);
                 if (split.length == 6) {
-                    country.set(split[5]);
+                    country.set(Country.fromCountryCode(split[5]));
                 }
             }
         }
@@ -62,14 +64,14 @@ public class Badge {
     public void setEmail(String email) { this.email.set(email); }
 
     // countryProperty
-    private final StringProperty country = new SimpleStringProperty(this, "country");
-    public final StringProperty countryProperty() {
+    private final ObjectProperty<Country> country = new SimpleObjectProperty<>(this, "country", Country.BE);
+    public final ObjectProperty<Country> countryProperty() {
        return country;
     }
-    public final String getCountry() {
+    public final Country getCountry() {
        return country.get();
     }
-    public final void setCountry(String value) {
+    public final void setCountry(Country value) {
         country.set(value);
     }
 
@@ -120,7 +122,7 @@ public class Badge {
         csv.append(",").append(safeStr(getLastName()));
         csv.append(",").append(safeStr(getCompany()));
         csv.append(",").append(safeStr(getEmail()));
-        csv.append(",").append(safeStr(getCountry()));
+        csv.append(",").append(safeStr(getCountry().getCountryName()));
         csv.append(",").append(safeStr(getDetails()));
         if (getDateTime() != 0L) {
             csv.append(",").append(safeStr(DATE_TIME_FORMATTER.format(new Timestamp(getDateTime()))));

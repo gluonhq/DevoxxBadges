@@ -1,6 +1,5 @@
 package com.devoxx.badges.service;
 
-import com.airhacks.afterburner.injection.Injector;
 import com.devoxx.badges.model.Badge;
 import com.devoxx.badges.model.User;
 import com.gluonhq.attach.connectivity.ConnectivityService;
@@ -90,7 +89,7 @@ public class Service {
                 .param("3", safeStr(badge.getLastName()))
                 .param("4", safeStr(badge.getCompany()))
                 .param("5", safeStr(badge.getEmail()))
-                .param("6", safeStr(badge.getCountry()))
+                .param("6", safeStr(badge.getCountry().getCountryName()))
                 .param("7", safeStr(badge.getDetails()))
                 .param("8", ZonedDateTime.now().format(DateTimeFormatter.ISO_INSTANT))
                 .object();
