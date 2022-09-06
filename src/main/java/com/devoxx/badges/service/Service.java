@@ -6,6 +6,7 @@ import com.gluonhq.attach.connectivity.ConnectivityService;
 import com.gluonhq.cloudlink.client.data.DataClient;
 import com.gluonhq.cloudlink.client.data.DataClientBuilder;
 import com.gluonhq.cloudlink.client.data.OperationMode;
+import com.gluonhq.cloudlink.client.data.RemoteFunction;
 import com.gluonhq.cloudlink.client.data.RemoteFunctionBuilder;
 import com.gluonhq.cloudlink.client.data.RemoteFunctionObject;
 import com.gluonhq.cloudlink.client.data.SyncFlag;
@@ -79,6 +80,21 @@ public class Service {
             return;
         }
         badges.forEach(badge -> postBadge(badge, user.getEmail()));
+    }
+
+    public void exportRemoteBadges() {
+        if (!user.isSignedUp()) {
+            return;
+        }
+        RemoteFunctionObject fnExport = RemoteFunctionBuilder.create("mailBadgesExport")
+                .param("0", safeStr(user.getEmail()))
+                .object();
+        GluonObservableObject<String> badgeResult = fnExport.call(String.class);
+        badgeResult.setOnFailed(e -> {
+            LOG.log(Level.WARNING, "Failed to call export badges: ", e.getSource().getException());
+        });
+        badgeResult.setOnSucceeded(e ->
+                LOG.log(Level.INFO, "Response from export badge: " + badgeResult.get()));
     }
 
     private void postBadge(Badge badge, String emailAddress) {

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.Icon?>
+<?import com.gluonhq.charm.glisten.mvc.View?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<View fx:id="syncView" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.devoxx.badges.views.SyncPresenter">
+   <VBox styleClass="box">
+      <ImageView fitHeight="80" fitWidth="80">
+         <image>
+            <Image url="@../../../../icon.png" />
+         </image>
+      </ImageView>
+      <Label styleClass="title" text="%SYNC.TITLE" />
+      <Label fx:id="description" styleClass="description" wrapText="true" />
+      <Button fx:id="export" text="%SYNC.EXPORT">
+         <graphic>
+            <Icon content="SEND" />
+         </graphic>
+      </Button>
+      <Button fx:id="signout" text="%SYNC.SIGNOUT">
+         <graphic>
+            <Icon content="LOCK_OPEN" />
+         </graphic>
+      </Button>
+   </VBox>
+</View>

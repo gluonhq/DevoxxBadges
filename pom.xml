@@ -23,14 +23,14 @@
         <gluonfx.target>host</gluonfx.target>
         <!-- for Android -->
         <version.code>1</version.code>
-        <version.name>1.0</version.name>
+        <version.name>1.1</version.name>
         <android.keystore.path/>
         <android.keystore.password/>
         <android.keyalias/>
         <android.keyalias.password/>
         <!-- for iOS -->
         <bundle.version>1</bundle.version>
-        <bundle.short.version>1.0</bundle.short.version>
+        <bundle.short.version>1.1</bundle.short.version>
     </properties>
 
     <dependencies>
@@ -214,6 +214,12 @@
             <id>ios</id>
             <properties>
                 <gluonfx.target>ios</gluonfx.target>
+            </properties>
+        </profile>
+        <profile>
+            <id>iossim</id>
+            <properties>
+                <gluonfx.target>ios-sim</gluonfx.target>
             </properties>
         </profile>
         <profile>

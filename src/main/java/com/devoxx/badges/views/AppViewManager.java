@@ -2,14 +2,12 @@ package com.devoxx.badges.views;
 
 import com.airhacks.afterburner.injection.Injector;
 import com.devoxx.badges.model.User;
-import com.gluonhq.attach.settings.SettingsService;
 import com.gluonhq.charm.glisten.afterburner.AppView;
 import com.gluonhq.charm.glisten.afterburner.AppViewRegistry;
 import com.gluonhq.charm.glisten.afterburner.Utils;
 import com.gluonhq.charm.glisten.application.AppManager;
 import com.gluonhq.charm.glisten.control.Avatar;
 import com.gluonhq.charm.glisten.control.NavigationDrawer;
-import com.gluonhq.charm.glisten.control.Toast;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.scene.image.Image;
 
@@ -31,6 +29,7 @@ public class AppViewManager {
     public static final AppView BADGES_VIEW = view(bundle.getString("BADGES.VIEW"), BadgesPresenter.class, MaterialDesignIcon.SCANNER, SHOW_IN_DRAWER, HOME_VIEW);
     public static final AppView EDITION_VIEW = view(bundle.getString("EDITION.VIEW"), EditionPresenter.class, MaterialDesignIcon.CONTACTS);
     public static final AppView SIGN_UP_VIEW = view(bundle.getString("ACTIVATION.VIEW"), ActivatePresenter.class, MaterialDesignIcon.LOCK, SHOW_IN_DRAWER);
+    public static final AppView SYNC_VIEW = view(bundle.getString("SYNC.VIEW"), SyncPresenter.class, MaterialDesignIcon.LOCK, SHOW_IN_DRAWER);
     public static final AppView ABOUT_VIEW = view(bundle.getString("ABOUT.VIEW"), AboutPresenter.class, MaterialDesignIcon.INFO, SHOW_IN_DRAWER, SKIP_VIEW_STACK);
 
     private static AppView view(String title, Class<?> presenterClass, MaterialDesignIcon menuIcon, AppView.Flag... flags ) {
@@ -60,20 +59,12 @@ public class AppViewManager {
         signupItem.visibleProperty().bind(user.signedUpProperty().not());
         signupItem.managedProperty().bind(signupItem.visibleProperty());
 
-        NavigationDrawer.Item logOut = new NavigationDrawer.Item(bundle.getString("ACTIVATION.MENU.OUT"), MaterialDesignIcon.LOCK_OPEN.graphic());
-        logOut.visibleProperty().bind(signupItem.visibleProperty().not());
-        logOut.managedProperty().bind(logOut.visibleProperty());
-        logOut.selectedProperty().addListener((obs, ov, nv) -> {
-            if (nv) {
-                SettingsService.create().ifPresent(settingsService -> {
-                    user.setEmail(null);
-                    settingsService.remove(AppViewManager.SAVED_ACCOUNT_EMAIL);
-                    Toast toast = new Toast(bundle.getString("ACTIVATION.SIGNED.OUT"));
-                    toast.show();
-                });
-                AppManager.getInstance().goHome();
-            }
-        });
-        drawer.getItems().add(drawer.getItems().indexOf(signupItem) + 1, logOut);
+        NavigationDrawer.Item syncItem = drawer.getItems().stream()
+                .filter(item -> ((NavigationDrawer.Item) item).getTitle().equals(SYNC_VIEW.getTitle()))
+                .map(NavigationDrawer.Item.class::cast)
+                .findFirst()
+                .orElseThrow();
+        syncItem.visibleProperty().bind(signupItem.visibleProperty().not());
+        syncItem.managedProperty().bind(syncItem.visibleProperty());
     }
 }
