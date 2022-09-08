@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -69,8 +68,12 @@ public class BadgesPresenter {
 
         scan.setOnAction(e -> {
             BarcodeScanService.create().ifPresentOrElse(s -> {
-                final Optional<String> scanQr = s.scan(resources.getString("BADGES.QR.TITLE"), null, null);
-                scanQr.ifPresent(this::addBadge);
+                s.resultProperty().addListener((obs, ov, nv) -> {
+                    if (nv != null) {
+                        addBadge(nv);
+                    }
+                });
+                s.asyncScan(resources.getString("BADGES.QR.TITLE"), null, null);
             },
             () -> addBadge(getDummyQR()));
         });
