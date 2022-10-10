@@ -11,26 +11,26 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>11</maven.compiler.release>
-        <javafx.version>18.0.2</javafx.version>
+        <javafx.version>19</javafx.version>
         <charm.version>6.1.1</charm.version>
         <charm.cloudlink.version>6.0.7</charm.cloudlink.version>
         <glisten.afterburner.version>2.1.0</glisten.afterburner.version>
         <connect.version>2.0.1</connect.version>
-        <attach.version>4.0.16-SNAPSHOT</attach.version>
+        <attach.version>4.0.16</attach.version>
         <gluonfx.plugin.version>1.0.15</gluonfx.plugin.version>
         <javafx.plugin.version>0.0.8</javafx.plugin.version>
         <mainClassName>com.devoxx.badges.DevoxxBadges</mainClassName>
         <gluonfx.target>host</gluonfx.target>
         <!-- for Android -->
         <version.code>1</version.code>
-        <version.name>1.1</version.name>
+        <version.name>1.2</version.name>
         <android.keystore.path/>
         <android.keystore.password/>
         <android.keyalias/>
         <android.keyalias.password/>
         <!-- for iOS -->
         <bundle.version>1</bundle.version>
-        <bundle.short.version>1.1</bundle.short.version>
+        <bundle.short.version>1.2</bundle.short.version>
     </properties>
 
     <dependencies>
